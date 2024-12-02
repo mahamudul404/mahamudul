@@ -53,3 +53,39 @@ document.addEventListener("DOMContentLoaded", function () {
     anchor.addEventListener("click", handleSmoothScroll);
   });
 });
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Select all sections and navigation links
+  const sections = document.querySelectorAll("section");
+  const navLinks = document.querySelectorAll("nav a");
+
+  // Function to update the active nav link
+  const updateActiveNav = () => {
+    let currentSection = "";
+
+    // Find the current section in view
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop - 100; // Offset to adjust when active state triggers
+      const sectionHeight = section.offsetHeight;
+      if (
+        window.scrollY >= sectionTop &&
+        window.scrollY < sectionTop + sectionHeight
+      ) {
+        currentSection = section.getAttribute("id");
+      }
+    });
+
+    // Update the active class on nav links
+    navLinks.forEach((link) => {
+      link.classList.remove("active");
+      if (link.getAttribute("href").includes(currentSection)) {
+        link.classList.add("active");
+      }
+    });
+  };
+
+  // Add scroll event listener
+  window.addEventListener("scroll", updateActiveNav);
+});
