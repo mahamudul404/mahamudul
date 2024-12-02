@@ -365,7 +365,7 @@ nav a.active, nav a:hover {
 }
 
 /* Skills Section */
-.skills {
+/* .skills {
     padding: 50px;
     background-color: #1a1a1a;
     text-align: center;
@@ -395,7 +395,7 @@ nav a.active, nav a:hover {
 .skill-set ul li {
     font-size: 20px;
     margin-bottom: 5px;
-}
+} */
 
 /* Education Section */
 .education {
@@ -468,7 +468,7 @@ nav a.active, nav a:hover {
     font-size: 3rem; /* Increased font size */
     font-weight: 700;
     margin-bottom: 40px;
-    color: #333; /* Darker color for better contrast */
+    color: #d49797; /* Darker color for better contrast */
 }
 
 .projects h2 span {
@@ -509,7 +509,7 @@ nav a.active, nav a:hover {
 .project-list p {
     font-size: 1.4rem; /* Larger font size */
     margin: 0;
-    color: #555; /* Slightly lighter color for text */
+    color: #000000; /* Slightly lighter color for text */
 }
 
 .project-list a {
@@ -547,7 +547,7 @@ nav a.active, nav a:hover {
     font-size: 2.5rem; /* Slightly larger font size */
     font-weight: 700;
     margin-bottom: 20px;
-    color: #333; /* Dark color for better contrast */
+    color: #a54343; /* Dark color for better contrast */
 }
 
 .get-in-touch h2 span {
@@ -556,7 +556,7 @@ nav a.active, nav a:hover {
 
 .get-in-touch p {
     font-size: 1.4rem; /* Larger font size for readability */
-    color: #555; /* Slightly lighter color for text */
+    color: #cebdbd; /* Slightly lighter color for text */
     margin-bottom: 40px;
 }
 
@@ -577,7 +577,7 @@ nav a.active, nav a:hover {
     font-size: 1.8rem; /* Font size for headings */
     font-weight: 600;
     margin-bottom: 10px;
-    color: #333; /* Dark color for headings */
+    color: #c71b1b; /* Dark color for headings */
 }
 
 .contact-detail p {
@@ -635,4 +635,110 @@ nav a.active, nav a:hover {
 
 .footer span {
     color: #e94e77;
+}
+
+
+/* General Section Styling */
+.skills {
+  padding: 80px 0;
+  background-color: #f4f4f4;
+}
+
+.skills-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.skills-content h2 {
+  font-size: 3rem;
+  margin-bottom: 30px;
+  color: #9b4040;
+}
+
+.skills-content h2 span {
+  color: #007bff;
+  font-weight: bold;
+}
+
+/* Flexbox Layout for Skills */
+.skills-wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.skill-set {
+  flex: 1;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+  min-width: 300px;
+  max-width: 48%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.skill-set:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.skill-set h3 {
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.skill-set h3 i {
+  margin-right: 12px;
+  font-size: 2rem;
+  color: #007bff;
+}
+
+.skill-set ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.skill-set ul li {
+  font-size: 1.4rem;
+  color: #555;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.skill-set ul li i {
+  margin-right: 15px;
+  color: #007bff;
+  font-size: 1.7rem;
+}
+
+.skill-set ul li:hover {
+  color: #007bff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 1024px) {
+  .skills-wrapper {
+    flex-direction: column;
+  }
+  .skill-set {
+    max-width: 100%;
+    margin-bottom: 30px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .skills-content h2 {
+    font-size: 2.5rem;
+  }
+  .skill-set ul li {
+    font-size: 1.3rem;
+  }
 }
