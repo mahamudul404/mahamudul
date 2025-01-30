@@ -1,91 +1,108 @@
-// Function to toggle mobile menu visibility
-function toggleMobileMenu() {
-  document.querySelector("nav").classList.toggle("active");
-}
+// Mobile Navigation Toggle
+const menuToggle = document.querySelector(".menu-toggle");
+const mobileNav = document.querySelector(".mobile-nav");
+const mobileNavLinks = document.querySelectorAll(".mobile-nav a");
 
-// Function to handle smooth scrolling and active link state
-function handleSmoothScroll(e) {
-  e.preventDefault();
+menuToggle.addEventListener("click", () => {
+  mobileNav.classList.toggle("active");
+  document.body.classList.toggle("menu-open");
+});
 
-  const targetId = this.getAttribute("href");
-  const targetElement = document.querySelector(targetId);
-
-  if (targetElement) {
-    targetElement.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-
-    document.querySelectorAll("nav a").forEach((link) => {
-      link.classList.remove("active");
-    });
-
-    this.classList.add("active");
-
-    if (document.querySelector("nav").classList.contains("active")) {
-      document.querySelector("nav").classList.remove("active");
-    }
-  } else {
-    console.error("Target element not found");
-  }
-}
-
-// Update the copyright year dynamically
-function updateCopyrightYear() {
-  const yearSpan = document.getElementById("year");
-  if (yearSpan) {
-    yearSpan.textContent = new Date().getFullYear();
-  }
-}
-
-// Event listeners
-document.addEventListener("DOMContentLoaded", function () {
-  // Set up the copyright year
-  updateCopyrightYear();
-
-  // Attach event listener for the mobile menu button
-  document
-    .getElementById("mobileMenu")
-    ?.addEventListener("click", toggleMobileMenu);
-
-  // Attach smooth scroll event listeners to anchor links
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", handleSmoothScroll);
+mobileNavLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    mobileNav.classList.remove("active");
+    document.body.classList.remove("menu-open");
   });
 });
 
+// Active Navigation Link with Intersection Observer
+const sections = document.querySelectorAll("section");
+const navLinks = document.querySelectorAll(".desktop-nav a");
 
+const observerOptions = {
+  root: null,
+  rootMargin: "0px",
+  threshold: 0.3,
+};
 
-document.addEventListener("DOMContentLoaded", function () {
-  // Select all sections and navigation links
-  const sections = document.querySelectorAll("section");
-  const navLinks = document.querySelectorAll("nav a");
+const observerCallback = (entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      const currentId = entry.target.id;
+      navLinks.forEach((link) => {
+        link.classList.remove("active");
+        if (link.getAttribute("href").slice(1) === currentId) {
+          link.classList.add("active");
+        }
+      });
+    }
+  });
+};
 
-  // Function to update the active nav link
-  const updateActiveNav = () => {
-    let currentSection = "";
+const observer = new IntersectionObserver(observerCallback, observerOptions);
 
-    // Find the current section in view
-    sections.forEach((section) => {
-      const sectionTop = section.offsetTop - 100; // Offset to adjust when active state triggers
-      const sectionHeight = section.offsetHeight;
-      if (
-        window.scrollY >= sectionTop &&
-        window.scrollY < sectionTop + sectionHeight
-      ) {
-        currentSection = section.getAttribute("id");
-      }
-    });
-
-    // Update the active class on nav links
-    navLinks.forEach((link) => {
-      link.classList.remove("active");
-      if (link.getAttribute("href").includes(currentSection)) {
-        link.classList.add("active");
-      }
-    });
-  };
-
-  // Add scroll event listener
-  window.addEventListener("scroll", updateActiveNav);
+sections.forEach((section) => {
+  observer.observe(section);
 });
+
+// Smooth Scroll with Enhanced Animation
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+  anchor.addEventListener("click", function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute("href"));
+    if (target) {
+      const headerOffset = 80;
+      const elementPosition = target.getBoundingClientRect().top;
+      const offsetPosition =
+        elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  });
+});
+
+// Parallax Effect for Background Elements
+window.addEventListener("scroll", () => {
+  const scrolled = window.pageYOffset;
+  document.querySelectorAll("section").forEach((section, index) => {
+    const speed = 0.2;
+    if (section.querySelector("::before")) {
+      section.style.backgroundPositionY = scrolled * speed + "px";
+    }
+  });
+});
+
+// Update Copyright Year
+document.getElementById("year").textContent = new Date().getFullYear();
+
+// Add Animation on Scroll
+const animateOnScroll = () => {
+  const elements = document.querySelectorAll(
+    ".skill-card, .project-card, .contact-card"
+  );
+
+  elements.forEach((element) => {
+    const elementTop = element.getBoundingClientRect().top;
+    const elementBottom = element.getBoundingClientRect().bottom;
+
+    if (elementTop < window.innerHeight && elementBottom > 0) {
+      element.style.opacity = "1";
+      element.style.transform = "translateY(0)";
+    }
+  });
+};
+
+// Initialize elements with opacity 0 and transform
+document
+  .querySelectorAll(".skill-card, .project-card, .contact-card")
+  .forEach((element) => {
+    element.style.opacity = "0";
+    element.style.transform = "translateY(20px)";
+    element.style.transition = "all 0.6s ease-out";
+  });
+
+window.addEventListener("scroll", animateOnScroll);
+window.addEventListener("load", animateOnScroll);
